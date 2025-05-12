@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>蒼璃的部落格</title>
   <style>
-    body {
+    body 
+    {
+      
       font-family: 'Microsoft JhengHei', sans-serif;
       background-color: #f2f2f2;
       margin: 0;
-      padding: 20px;
+      padding: 20px;     
     }
-    .container {
+    
+    .container 
+    {
       max-width: 700px;
       margin: auto;
       background-color: white;
@@ -19,23 +24,54 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 {
+    h1 
+    {
       color: #2c3e50;
     }
-    .subtitle {
+    .subtitle
+    {
       color: #666;
       margin-bottom: 30px;
     }
-    .post {
+    .post 
+    {
       margin-bottom: 40px;
     }
-    .post h2 {
+    .post h2 
+    {
       color: #2980b9;
+    }
+    .navbar 
+    {
+      background-color: #34495e;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .navbar a 
+    {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .navbar a:hover 
+    {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
+  <div class="navbar">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於我</a>
+    <a href="contact.html">聯絡我</a>
+  </div>
+
   <div class="container">
+
     <h1>蒼璃的部落格</h1>
     <p class="subtitle">一個熱愛寫程式與分享的人的日常</p>
 
@@ -48,6 +84,75 @@
       <h2>為什麼我想成為全端工程師？</h2>
       <p>因為我想從 0 到 1 完成一個產品，從前端設計到後端資料管理，全部掌握在手上很有成就感。</p>
     </div>
+
+    <div class="new-post">
+      <h2>新增文章</h2>
+        <input type="text" id="titleInput" placeholder="文章標題" />
+        <br /><br />
+        <textarea id="contentInput" placeholder="文章內容"></textarea>
+        <br /><br />
+        <button onclick="addPost()">新增文章</button>
+    </div>
+
   </div>
+
+<script>
+  function addPost() {
+    const title = document.getElementById('titleInput').value;
+    const content = document.getElementById('contentInput').value;
+
+    if (!title || !content) {
+      alert("請填寫完整的標題與內容！");
+      return;
+    }
+
+    const postDiv = document.createElement('div');
+    postDiv.className = 'post';
+
+    const postTitle = document.createElement('h2');
+    postTitle.textContent = title;
+
+    const postContent = document.createElement('p');
+    postContent.textContent = content;
+
+    postDiv.appendChild(postTitle);
+    postDiv.appendChild(postContent);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '刪除';
+    deleteBtn.style.marginTop = '10px';
+    deleteBtn.onclick = function() 
+    {
+      container.removeChild(postDiv);
+    };
+
+    let liked = false;
+
+    const likeBtn = document.createElement('button');
+    likeBtn.textContent = '讚';
+    likeBtn.style.marginTop = '10px';
+    likeBtn.onclick = function() 
+    {
+      if (!liked)
+      {
+        alert('你按讚了這篇文章!');
+        likeBtn.textContent = '已讚';
+        likeBtn.style.backgroundColor = '#66ff66';
+        liked = true;
+      }
+    };
+
+    postDiv.appendChild(likeBtn);
+    postDiv.appendChild(deleteBtn);
+
+    const container = document.querySelector('.container');
+    container.insertBefore(postDiv, document.querySelector('.new-post'));
+
+    document.getElementById('titleInput').value = '';
+    document.getElementById('contentInput').value = '';
+  }
+</script>
+
 </body>
+
 </html>
